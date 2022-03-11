@@ -30,7 +30,7 @@ class VerificationController extends Controller
 
     /**
      * Create a new controller instance.
-     *
+     * 使用了中间件简称，这些简称是在 app/Http/Kernel.php 中的 $routeMiddleware 属性里做了定义
      * @return void
      */
     public function __construct()
