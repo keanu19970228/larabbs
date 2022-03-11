@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Events\UsersLogin;
 use App\Listeners\EmailVerified;
+use App\Listeners\PasswordResetNotification;
 use App\Listeners\UsersLoginNotification;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -31,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
         UsersLogin::class => [
             UsersLoginNotification::class,
         ],
+//        //  对重置密码 PasswordReset 事件进行监听
+//        PasswordReset::class => [
+//            PasswordResetNotification::class,
+//        ],
     ];
 
     /**
