@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\UsersLogin;
+use App\Listeners\EmailVerified;
+use App\Listeners\UsersLoginNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +25,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         //  对 Verified 事件进行监听
         Verified::class => [
-            \App\Listeners\EmailVerified::class,
+            EmailVerified::class,
+        ],
+        //  对退出登陆 UsersLogout 事件进行监听
+        UsersLogin::class => [
+            UsersLoginNotification::class,
         ],
     ];
 
