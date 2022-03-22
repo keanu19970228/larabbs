@@ -9,7 +9,7 @@ class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     * 权限验证
+     * 表单请求：权限验证
      * @return bool
      */
     public function authorize()
