@@ -45,7 +45,7 @@ class ImageUploadHandler
 
         // 返回图片路径
         return [
-            'path' => config('app.url') . "/$folder_name/$filename"
+            'path' => "/$folder_name/$filename"
         ];
     }
 }

@@ -32,6 +32,8 @@ class UsersController extends Controller
             $result = $uploader->save($request->avatar, 'avatars', $user->id);
             if ($result) {
                 $data['avatar'] = $result['path'];
+            }else {
+                return back()->withErrors(['上传图片格式只支持png, jpg, gif, jpeg这四种格式']);
             }
         }
 
