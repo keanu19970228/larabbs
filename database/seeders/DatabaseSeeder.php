@@ -5,6 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * 3. 注册数据填充
+ * @package Database\Seeders
+ */
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,6 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UsersTableSeeder::class);
+        $this->call(TopicsTableSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }
