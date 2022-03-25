@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * 访问器 - 头像链接字段
+     * 访问器 - 头像链接字段（get + name + Attribute）
      * @param string $value
      * @return string
      */
