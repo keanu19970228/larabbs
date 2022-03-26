@@ -33,15 +33,16 @@
 
                   <div class="mb-3">
                     <select class="form-control" name="category_id" required>
-                      <option value="" hidden disabled selected>请选择分类</option>
+                      <option value="" hidden disabled selected {{ $topic->id ? '' : 'selected' }}>请选择分类</option>
                       @foreach ( $categories as $value )
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                        <option value="{{ $value->id }}" {{ $topic->category_id == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
                       @endforeach
                     </select>
                   </div>
 
                   <div class="mb-3">
-            <textarea name="body" data-autosave="editor-content" autofocus class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。"
+{{--                    data-autosave="editor-content" autofocus--}}
+            <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。"
                       required>{{ old('body', $topic->body) }}</textarea>
                   </div>
 
@@ -65,7 +66,7 @@
   <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/simditor-dropzone.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/simditor-autosave.js') }}"></script>
+{{--  <script type="text/javascript" src="{{ asset('js/simditor-autosave.js') }}"></script>--}}
 
 
   <script>
