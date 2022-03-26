@@ -24,6 +24,10 @@ class TopicObserver
     // 如果一个模型已经存在于数据库且调用了 save 方法，将会触发 updating 和 updated 事件。在这两种情况下都会触发 saving 和 saved 事件。
     public function saving(Topic $topic)
     {
+        // 在观察这种对富文本输入的 body 字段进行 XSS 过滤
+        // https://learnku.com/courses/laravel-intermediate-training/9.x/safety-problem/12512
+        $topic->body = clean($topic->body,'user_topic_body');
+
         $topic->excerpt = make_excerpt($topic->body);
     }
 }
