@@ -10,6 +10,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title','LaraBBS')</title>
+  <meta name="description" content="@yield('description', 'LaraBBS')" />
 
   {{--  styles --}}
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">

@@ -41,7 +41,7 @@
                   </div>
 
                   <div class="mb-3">
-            <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。"
+            <textarea name="body" data-autosave="editor-content" autofocus class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。"
                       required>{{ old('body', $topic->body) }}</textarea>
                   </div>
 
@@ -54,6 +54,7 @@
     </div>
   </div>
 @endsection
+
 @section('styles')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
 @stop
@@ -63,11 +64,25 @@
   <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/simditor-dropzone.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/simditor-autosave.js') }}"></script>
+
 
   <script>
     $(document).ready(function() {
+      // Simditor.locale = 'en-US'; // 设置为英语；
       var editor = new Simditor({
         textarea: $('#editor'),
+        upload: {
+          url: '{{ route('topics.upload_image') }}', // 处理上传图片的 URL；
+          params: {
+            _token: '{{ csrf_token() }}' // 表单提交的参数，Laravel 的 POST 请求必须带防止 CSRF 跨站请求伪造的 _token 参数；
+          },
+          fileKey: 'upload_file', // 是服务器端获取图片的键值，我们设置为 upload_file;
+          connectionCount: 3, // 最多只能同时上传 3 张图片；
+          leaveConfirm: '文件上传中，关闭此页面将取消上传。'
+        },
+        pasteImage: true, // 设定是否支持图片黏贴上传，这里我们使用 true 进行开启；
       });
     });
   </script>
