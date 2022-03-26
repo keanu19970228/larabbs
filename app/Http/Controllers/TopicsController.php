@@ -32,7 +32,7 @@ class TopicsController extends Controller
 
 	public function create(Topic $topic)
 	{
-	    $categories = Category::all();
+	    $categories = Category::all(); // 可有可无，在视图共享中已为所有视图共享 categories
 		return view('topics.create_and_edit', compact('topic','categories'));
 	}
 
@@ -49,13 +49,13 @@ class TopicsController extends Controller
 		$topic->save();
 
 //        dd($topic->excerpt);
-		return redirect()->route('topics.show', $topic->id)->with('message', 'Created successfully.');
+		return redirect()->route('topics.show', $topic->id)->with('success', '发布成功！');
 	}
 
 	public function edit(Topic $topic)
 	{
         $this->authorize('update', $topic);
-        $categories = Category::all();
+        $categories = Category::all();  // 可有可无，在视图共享中已为所有视图共享 categories
 		return view('topics.create_and_edit', compact('topic','categories'));
 	}
 
@@ -64,7 +64,7 @@ class TopicsController extends Controller
 		$this->authorize('update', $topic);
 		$topic->update($request->all());
 
-		return redirect()->route('topics.show', $topic->id)->with('message', 'Updated successfully.');
+		return redirect()->route('topics.show', $topic->id)->with('success', '更新成功！');
 	}
 
 	public function destroy(Topic $topic)
