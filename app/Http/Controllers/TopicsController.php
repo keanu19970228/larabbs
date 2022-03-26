@@ -37,15 +37,17 @@ class TopicsController extends Controller
 
 	public function store(TopicRequest $request, Topic $topic)
 	{
-//	    $topic->user_id = $request->user_id;
+//	      $topic->user_id = $request->user_id;
 //        $topic->title = $request->title;
 //        $topic->category_id = $request->category_id;
 //        $topic->body = $request->body;
 
         $topic->fill($request->all());
         $topic->user_id = Auth::id();
+
 		$topic->save();
 
+//        dd($topic->excerpt);
 		return redirect()->route('topics.show', $topic->id)->with('message', 'Created successfully.');
 	}
 
