@@ -25,16 +25,21 @@ class TopicsController extends Controller
 		return view('topics.index', compact('topics'));
 	}
 
-    public function show(Topic $topic)
+    public function show(Request $request, Topic $topic)
     {
+        // URL 矫正
+        if ( ! empty($topic->slug) && $topic->slug != $request->slug) {
+            return redirect($topic->link(), 301);
+        }
+
         return view('topics.show', compact('topic'));
     }
 
 	public function create(Topic $topic)
 	{
 	    $categories = Category::all(); // 可有可无，在视图共享中已为所有视图共享 categories
-		return view('topics.create_and_edit', compact('topic','categories'));
-	}
+		return view('topics.create_and_edit', compact('topic','categories'))
+;	}
 
 	public function store(TopicRequest $request, Topic $topic)
 	{
@@ -49,7 +54,7 @@ class TopicsController extends Controller
 		$topic->save();
 
 //        dd($topic->excerpt);
-		return redirect()->route('topics.show', $topic->id)->with('success', '发布成功！');
+		return redirect()->to($topic->link())->with('success', '发布成功！');
 	}
 
 	public function edit(Topic $topic)
@@ -64,7 +69,7 @@ class TopicsController extends Controller
 		$this->authorize('update', $topic);
 		$topic->update($request->all());
 
-		return redirect()->route('topics.show', $topic->id)->with('success', '更新成功！');
+		return redirect()->to($topic->link())->with('success', '更新成功！');
 	}
 
 	public function destroy(Topic $topic)
