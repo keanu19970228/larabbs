@@ -9,11 +9,13 @@ class TopicPolicy extends Policy
 {
     public function update(User $user, Topic $topic)
     {
-        return $user->id === $topic->user_id || $user->id === 1;
+//        return $user->id === $topic->user_id || $user->id === 1;
+        return $user->isAuthorOf($topic);
     }
 
     public function destroy(User $user, Topic $topic)
     {
-        return true;
+//        return $user->id === $topic->user_id || $user->id === 1;
+        return $user->isAuthorOf($topic);
     }
 }
