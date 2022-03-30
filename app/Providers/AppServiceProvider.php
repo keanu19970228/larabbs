@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Topic;
+use App\Models\User;
+use App\Observers\TopicObserver;
+use App\Observers\UserObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,9 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
 	{
-		\App\Models\User::observe(\App\Observers\UserObserver::class);
-		\App\Models\Topic::observe(\App\Observers\TopicObserver::class);
-		\Illuminate\Pagination\Paginator::useBootstrap();
+	    User::observe(UserObserver::class);
+	    Topic::observe(TopicObserver::class);
+	    Paginator::useBootstrap();
 
 		// 视图共享
 		View::share('categories', Category::all());
