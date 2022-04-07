@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(10)->create();
+        User::factory()->count(100)->create();
 
         // 单独处理第一个用户的数据
         $user = User::find(1);
