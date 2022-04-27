@@ -37,6 +37,7 @@
             |
             <i class="far fa-comment"></i>
             {{ $topic->reply_count }}
+{{--            {{ $topic->replies->count() }}--}}
           </div>
 
           <div class="topic-body mt-4 mb-4">
