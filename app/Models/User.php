@@ -18,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
         notify as protected laravelNotify;
     }
 
+    //
     public function notify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -91,5 +92,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAuthorOf($model)
     {
         return $this->id == $model->user_id || $this->id === 1;
+    }
+
+    // 用户访问通知列表时，将所有通知状态设定为已读，并清空未读消息数。
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
 }
