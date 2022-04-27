@@ -20,9 +20,13 @@ class RepliesController extends Controller
 	    $reply->topic_id = $request->topic_id;
 	    $reply->user_id = Auth::id();
 	    $reply->content = $request->content;
-	    $reply->save();
+	    $res = $reply->save();
 
-		return redirect()->route('topics.show', $reply->topic_id)->with('success', '评论回复成功。');
+	    if (!$res) {
+            return redirect()->back()->with('danger', '内容回复失败');
+        } else {
+            return redirect()->back()->with('success', '内容回复成功');
+        }
 	}
 
 	public function destroy(Reply $reply)
